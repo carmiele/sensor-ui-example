@@ -16,7 +16,7 @@ const Layout = ({ children, title = 'This is the default title' }: Props) => (
     </Head>
     <header>
       <nav className="bg-white mx-auto max-w-7xl px-8">
-        <Link href="/dashboard" className="px-6 py-4 text-sm font-medium inline-flex hover:border-b-2 hover:border-gray-600">Dashboard</Link>
+        <Link href="/dashboard" className="px-6 py-4 text-sm text-gray-500 font-medium inline-flex border-b-2 border-transparent hover:border-gray-400">Dashboard</Link>
       </nav>
       <hr className="inset"></hr>
     </header>
