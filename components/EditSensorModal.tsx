@@ -1,4 +1,4 @@
-import { Dispatch, Fragment, SetStateAction, useRef } from 'react'
+import { Dispatch, Fragment, SetStateAction, useEffect, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { Sensor } from "../interfaces/sensor"
 import SensorMetadataForm from "./SensorMetadataForm"
@@ -12,12 +12,24 @@ type Props = {
 const EditSensorModal = ({ open, setOpen, sensor }: Props) => {
     const cancelButtonRef = useRef(null);
 
-    const saveForm = () => {
-        // check form inputs before saving
-        // ...
-        // close modal if form success
-        setOpen(false);
+    const [submitted, setSubmitted] = useState(false);
+    const [formSuccess, setFormSuccess] = useState(false);
+
+    const triggerFormSave = () => {
+        // trigger submission state
+        setSubmitted(true);
     }
+
+    useEffect(() => {
+        if (formSuccess) {
+            // close modal if form success
+            console.log('form success!');
+
+            // reset form success state
+            setFormSuccess(false);
+            setOpen(false);
+        }
+    }, [formSuccess]);
 
     return (
         <Transition.Root show={open} as={Fragment}>
@@ -47,13 +59,13 @@ const EditSensorModal = ({ open, setOpen, sensor }: Props) => {
                         >
                             <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                                 <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                                    <SensorMetadataForm sensor={sensor}/>
+                                    <SensorMetadataForm submitted={submitted} setSubmitted={setSubmitted} setFormSuccess={setFormSuccess} sensor={sensor}/>
                                 </div>
                                 <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                                     <button
                                         type="button"
                                         className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
-                                        onClick={() => saveForm()}
+                                        onClick={() => triggerFormSave()}
                                     >
                                         Save
                                     </button>
