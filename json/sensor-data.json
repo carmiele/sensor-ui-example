@@ -1,1 +1,147 @@
-{"tp-10001":{"id":"tp-10001","name":"Temp-US-West-10001","type":"temperature","location":{"lat":34.047996,"long":-118.2521},"tags":["tag1","tag2","tag3","tag4 with-space"],"meta":{"model":"TS-AAA123","owner":"","install_date":1675209600000,"manufacture_date":1652486400000,"expiry_date":"","sampling_frequency":"","temperature_range":{"min":"0","max":"250","unit":"C"},"humidity_range":{"min":"","max":"","unit":""}}},"tp-10002":{"id":"tp-10002","name":"Temp-US-West-10002","type":"temperature","location":{"lat":34.047996,"long":-118.252403},"tags":["tag1"]},"tp-10003":{"id":"tp-10003","name":"Temp-US-West-10003","type":"temperature","location":{"lat":34.023534,"long":-118.3534}},"tp-10016":{"id":"tp-10016","name":"Temp-US-West-10016","type":"temperature","location":{"lat":34.353534,"long":-116.3534},"tags":["tag2","tag3"]},"tp-10017":{"id":"tp-10017","name":"Temp-US-West-10017","type":"temperature","location":{"lat":34.353534,"long":-109.3534},"tags":["tag2","tag3"]},"tp-10018":{"id":"tp-10018","name":"Temp-US-West-10018","type":"temperature","location":{"lat":34.4532,"long":-110.32423},"tags":["tag2","tag3","mini","big"]},"tp-10200":{"id":"tp-10200","name":"Temp-US-East-10200","type":"temperature","location":{"lat":40.7128,"long":74.006},"tags":["mini tag","mini tag 2"]},"tp-10204":{"id":"tp-10204","name":"Temp-US-East-10204","type":"temperature","location":{"lat":40.7356,"long":74.00634},"tags":["tiny","big"]},"tp-10207":{"id":"tp-10207","name":"Temp-US-East-10207","type":"temperature","location":{"lat":40.72122,"long":74.343432},"tags":["tiny","big"]},"tp-10208":{"id":"tp-10208","name":"Temp-US-East-10208","type":"temperature","location":{"lat":40.72122,"long":74.936571}},"tp-10209":{"id":"tp-10209","name":"Temp-US-East-10209","type":"temperature","location":{"lat":40.72123,"long":74.211324}},"tp-10211":{"id":"tp-10210","name":"Temp-US-East-10211","type":"temperature","location":{"lat":40.82342,"long":74.12111},"tags":["tag2 with space","tiny","tag4","big","tagliatele"]},"tp-10226":{"id":"tp-10226","name":"Temp-US-East-10226","type":"temperature","location":{"lat":40.767932,"long":74.45328},"tags":["tag2","tag4"]}}
+{
+    "tp-10001": {
+        "id": "tp-10001",
+        "name": "Temp-US-West-10001",
+        "type": "temperature",
+        "location": {
+            "lat": 34.047996,
+            "long": -118.2521
+        },
+        "tags": ["tag1", "tag2", "tag3", "tag4 with-space"],
+        "meta": {
+            "model": "TS-AAA123",
+            "owner": "",
+            "install_date": 1675209600000,
+            "manufacture_date": 1652486400000,
+            "expiry_date": "",
+            "sampling_frequency": "",
+            "temperature_range": {
+                "min": "0",
+                "max": "250",
+                "unit": "C"
+            },
+            "humidity_range": {
+                "min": "",
+                "max": "",
+                "unit": ""
+            }
+        }
+    },
+    "tp-10002": {
+        "id": "tp-10002",
+        "name": "Temp-US-West-10002",
+        "type": "temperature",
+        "location": {
+            "lat": 34.047996,
+            "long": -118.252403
+        },
+        "tags": ["tag1"]
+    },
+    "tp-10003": {
+        "id": "tp-10003",
+        "name": "Temp-US-West-10003",
+        "type": "temperature",
+        "location": {
+            "lat": 34.023534,
+            "long": -118.3534
+        }
+    },
+    "tp-10016": {
+        "id": "tp-10016",
+        "name": "Temp-US-West-10016",
+        "type": "temperature",
+        "location": {
+            "lat": 34.353534,
+            "long": -116.3534
+        },
+        "tags": ["tag2", "tag3"]
+    },
+    "tp-10017": {
+        "id": "tp-10017",
+        "name": "Temp-US-West-10017",
+        "type": "temperature",
+        "location": {
+            "lat": 34.353534,
+            "long": -109.3534
+        },
+        "tags": ["tag2", "tag3"]
+    },
+    "tp-10018": {
+        "id": "tp-10018",
+        "name": "Temp-US-West-10018",
+        "type": "temperature",
+        "location": {
+            "lat": 34.4532,
+            "long": -110.32423
+        },
+        "tags": ["tag2", "tag3", "mini", "big"]
+    },
+    "tp-10200": {
+        "id": "tp-10200",
+        "name": "Temp-US-East-10200",
+        "type": "temperature",
+        "location": {
+            "lat": 40.7128,
+            "long": 74.006
+        },
+        "tags": ["mini tag", "mini tag 2"]
+    },
+    "tp-10204": {
+        "id": "tp-10204",
+        "name": "Temp-US-East-10204",
+        "type": "temperature",
+        "location": {
+            "lat": 40.7356,
+            "long": 74.00634
+        },
+        "tags": ["tiny", "big"]
+    },
+    "tp-10207": {
+        "id": "tp-10207",
+        "name": "Temp-US-East-10207",
+        "type": "temperature",
+        "location": {
+            "lat": 40.72122,
+            "long": 74.343432
+        },
+        "tags": ["tiny", "big"]
+    },
+    "tp-10208": {
+        "id": "tp-10208",
+        "name": "Temp-US-East-10208",
+        "type": "temperature",
+        "location": {
+            "lat": 40.72122,
+            "long": 74.936571
+        }
+    },
+    "tp-10209": {
+        "id": "tp-10209",
+        "name": "Temp-US-East-10209",
+        "type": "temperature",
+        "location": {
+            "lat": 40.72123,
+            "long": 74.211324
+        }
+    },
+    "tp-10211": {
+        "id": "tp-10210",
+        "name": "Temp-US-East-10211",
+        "type": "temperature",
+        "location": {
+            "lat": 40.82342,
+            "long": 74.12111
+        },
+        "tags": ["tag2 with space", "tiny", "tag4", "big", "tagliatele"]
+    },
+    "tp-10226": {
+        "id": "tp-10226",
+        "name": "Temp-US-East-10226",
+        "type": "temperature",
+        "location": {
+            "lat": 40.767932,
+            "long": 74.45328
+        },
+        "tags": ["tag2", "tag4"]
+    }
+}

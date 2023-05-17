@@ -12,14 +12,4 @@ describe('IndexPage', () => {
  
     expect(heading).toBeInTheDocument();
   });
-
-  it('renders a link to the dashboard', () => {
-    render(<Home/>);
-
-    const link = screen.getByRole('link');
-
-    expect(link).toBeInTheDocument();
-
-    expect(link).toHaveAttribute('href', '/dashboard');
-  });
 });

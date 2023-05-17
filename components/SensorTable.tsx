@@ -3,16 +3,12 @@ import { Sensor } from "../interfaces/sensor";
 import EditSensorBtn from "./EditSensorButton";
 import SensorTagList from "./SensorTagList";
 
-type Props = {
-    sensors: Sensor[]
-}
 const SensorTable = () => {
 
     const [loading, setLoading] = useState<boolean>(true);
     const [allSensors, setAllSensors] = useState<Sensor[]>([]);
     const [sensors, setSensors] = useState<Sensor[]>([]);
     const [filters, setFilters] = useState<{ [key: string]: string }>({});
-    const [error, setError] = useState<boolean>(false);
 
     const searchSensors = (field: string, event: ChangeEvent<HTMLInputElement>) => {
         const val = event.target.value;
@@ -55,17 +51,18 @@ const SensorTable = () => {
         filterSensors();
     }, [filters]);
 
-    useEffect(() => {
-        setLoading(true);
+    const getAllSensors = () => {
         fetch('/api/sensors')
             .then((res) => res.json())
             .then((data) => {
                 setAllSensors(Object.values(data));
                 setFilters({});
                 setLoading(false);
-            }, (e) => {
-                setLoading(false);
-            });
+            }, (e) => { });
+    };
+
+    useEffect(() => {
+        getAllSensors();
     }, []);
 
     return (<table className="table w-full">
@@ -92,7 +89,7 @@ const SensorTable = () => {
         <tbody>
             {loading && <tr><td>Loading...</td></tr>}
             {!loading && sensors?.length > 0 && sensors.map((sensor) => (
-                <tr key={sensor.id} className="border-b border-gray-200">
+                <tr data-test-id="sensor-rows" key={sensor.id} className="border-b border-gray-200">
                     <td className="px-6 py-4">{sensor.name || "--"}</td>
                     <td className="px-6 py-4">{sensor.location ? sensor.location.lat + ", " + sensor.location.long : "--"}</td>
                     <td className="px-6 py-4">{sensor?.tags && sensor?.tags.length > 0 ? <SensorTagList tags={sensor.tags} /> : "--"}</td>
