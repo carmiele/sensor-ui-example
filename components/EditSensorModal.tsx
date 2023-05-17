@@ -2,6 +2,7 @@ import { Dispatch, Fragment, SetStateAction, useEffect, useRef, useState } from 
 import { Dialog, Transition } from '@headlessui/react'
 import { Sensor } from "../interfaces/sensor"
 import SensorMetadataForm from "./SensorMetadataForm"
+import Loading from "./Loading"
 
 type Props = {
     open: boolean,
@@ -26,13 +27,11 @@ const EditSensorModal = ({ open, setOpen, sensorId }: Props) => {
     useEffect(() => {
         if (open) {
             fetch(`/api/sensors/${sensorId}`)
-            .then((res) => res.json())
-            .then((data) => {
-                setSensor(data);
-                // setLoading(false);
-            }, (e) => {
-                // setLoading(false);
-            });
+                .then((res) => res.json())
+                .then((data) => {
+                    setSensor(data);
+                }, (e) => {
+                });
         }
     }, [open]);
 
@@ -74,21 +73,21 @@ const EditSensorModal = ({ open, setOpen, sensorId }: Props) => {
                             <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                                 <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                                     {
-                                        sensor && <SensorMetadataForm submitted={submitting} setSubmitted={setSubmitting} setFormSuccess={setFormSuccess} sensor={sensor} />
+                                        sensor ? <SensorMetadataForm submitted={submitting} setSubmitted={setSubmitting} setFormSuccess={setFormSuccess} sensor={sensor} /> : <div className="h-32 w-full flex content-center justify-items-center"><Loading /></div>
                                     }
                                 </div>
                                 <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                                     <button
                                         type="button"
-                                        className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
-                                        disabled={submitting}
+                                        className="inline-flex w-full justify-center rounded-sm bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
+                                        disabled={submitting || !sensor}
                                         onClick={() => triggerFormSave()}
                                     >
                                         Save
                                     </button>
                                     <button
                                         type="button"
-                                        className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                                        className="mt-3 inline-flex w-full justify-center rounded-sm bg-white px-3 py-2 text-sm font-semibold text-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
                                         onClick={() => setOpen(false)}
                                         ref={cancelButtonRef}
                                     >
@@ -100,7 +99,7 @@ const EditSensorModal = ({ open, setOpen, sensorId }: Props) => {
                     </div>
                 </div>
             </Dialog>
-        </Transition.Root>
+        </Transition.Root >
     )
 }
 

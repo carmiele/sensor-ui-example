@@ -4,7 +4,7 @@ import { Sensor } from "../interfaces/sensor";
 
 const DashboardPage = () => (
     <Layout title="Sensor Dashboard">
-        <h1 className="text-3xl">Sensor Dashboard</h1>
+        <h1 className="text-3xl mb-5">Sensor Dashboard</h1>
 
         <SensorTable></SensorTable>
     </Layout>

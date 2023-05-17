@@ -27,8 +27,12 @@ const SensorMetadataForm = ({ submitted, setSubmitted, setFormSuccess, sensor }:
             return '';
         }
         switch (fieldType) {
-            case 'date':
-                return formatDate(new Date(baseObject[key] * 1000).toISOString());
+            case 'date': {
+                if (!baseObject[key]) {
+                    return;
+                }
+                return formatDate((new Date(baseObject[key] * 1000)));
+            }
         }
         return baseObject[key];
     }
@@ -58,11 +62,7 @@ const SensorMetadataForm = ({ submitted, setSubmitted, setFormSuccess, sensor }:
             // trigger validation of all form fields
             trigger();
 
-            console.log(errors, isValid);
-
             if (isValid) {
-                console.log('values', getValues());
-
                 const formValues = transformFormMeta(getValues());
 
                 const requestBody: SensorMetadataBody = {
@@ -134,7 +134,7 @@ const SensorMetadataForm = ({ submitted, setSubmitted, setFormSuccess, sensor }:
                                 <input
                                     type={subField.fieldType}
                                     defaultValue={getSubDefaultValue(field, subField)}
-                                    className="text-gray-700 bg-gray-200 px-4 py-2 w-full" {...register(getSubfieldKey(field, subField), subField.fieldDetails as RegisterOptions)}
+                                    className="text-gray-700 bg-gray-200 px-4 py-2 w-full rounded-sm" {...register(getSubfieldKey(field, subField), subField.fieldDetails as RegisterOptions)}
                                     onBlur={() => validateInput(getSubfieldKey(field, subField))}
                                 />
                                 {(getSubfieldKey(field, subField) in errors) && <FormError error={errors[getSubfieldKey(field, subField)]} />}
