@@ -1,6 +1,6 @@
 # Sensor UI Example
 
-This is a dashboard to display a list of sensors (stored locally).
+This is a dashboard to display a list of sensors (stored locally in this repo). This contains both the API endpoints to read/write the data to the file, as well as the UI to display and interact this data.
 
 Stack Used:
 - Framework - Next.js 13 (min Node version: 14.18.0)
