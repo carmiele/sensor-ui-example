@@ -6,27 +6,41 @@ import SensorMetadataForm from "./SensorMetadataForm"
 type Props = {
     open: boolean,
     setOpen: Dispatch<SetStateAction<boolean>>,
-    sensor: Sensor
+    // sensor: Sensor
+    sensorId: string
 }
 
-const EditSensorModal = ({ open, setOpen, sensor }: Props) => {
+const EditSensorModal = ({ open, setOpen, sensorId }: Props) => {
+
     const cancelButtonRef = useRef(null);
 
-    const [submitted, setSubmitted] = useState(false);
+    const [submitting, setSubmitting] = useState(false);
     const [formSuccess, setFormSuccess] = useState(false);
+    const [sensor, setSensor] = useState<Sensor>();
 
     const triggerFormSave = () => {
         // trigger submission state
-        setSubmitted(true);
+        setSubmitting(true);
     }
 
     useEffect(() => {
-        if (formSuccess) {
-            // close modal if form success
-            console.log('form success!');
+        if (open) {
+            fetch(`/api/sensors/${sensorId}`)
+            .then((res) => res.json())
+            .then((data) => {
+                setSensor(data);
+                // setLoading(false);
+            }, (e) => {
+                // setLoading(false);
+            });
+        }
+    }, [open]);
 
+    useEffect(() => {
+        if (formSuccess) {
             // reset form success state
             setFormSuccess(false);
+            // close modal if form success
             setOpen(false);
         }
     }, [formSuccess]);
@@ -59,12 +73,15 @@ const EditSensorModal = ({ open, setOpen, sensor }: Props) => {
                         >
                             <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                                 <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                                    <SensorMetadataForm submitted={submitted} setSubmitted={setSubmitted} setFormSuccess={setFormSuccess} sensor={sensor}/>
+                                    {
+                                        sensor && <SensorMetadataForm submitted={submitting} setSubmitted={setSubmitting} setFormSuccess={setFormSuccess} sensor={sensor} />
+                                    }
                                 </div>
                                 <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                                     <button
                                         type="button"
                                         className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
+                                        disabled={submitting}
                                         onClick={() => triggerFormSave()}
                                     >
                                         Save

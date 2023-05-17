@@ -44,10 +44,34 @@ export type SensorMetaFormSchemas = {
 export const sensorMetaFormSchemas: SensorMetaFormSchemas = {
     "temperature": [
         {
+            fieldKey: "model",
+            fieldName: "Model",
+            fieldType: "text",
+            fieldDetails: { required: "This is required." }
+        },
+        {
+            fieldKey: "owner",
+            fieldName: "Owner",
+            fieldType: "text",
+        },
+        {
             fieldKey: "install_date",
             fieldName: "Installation Date",
             fieldType: "date",
-            fieldDetails: { required: true }
+            fieldDetails: { required: "This is required." }
+        }, {
+            fieldKey: "manufacture_date",
+            fieldName: "Manufacture Date",
+            fieldType: "date",
+            fieldDetails: { required: "This is required." }
+        }, {
+            fieldKey: "expiry_date",
+            fieldName: "Expiration Date",
+            fieldType: "date",
+        }, {
+            fieldKey: "sampling_frequency",
+            fieldName: "Sampling Frequency",
+            fieldType: "number",
         }, {
             fieldKey: "temperature_range",
             fieldName: "Temperature Range",
@@ -56,12 +80,10 @@ export const sensorMetaFormSchemas: SensorMetaFormSchemas = {
                 fieldKey: "min",
                 fieldName: "Min",
                 fieldType: "number",
-                fieldDetails: { valueAsNumber: true, }
             }, {
                 fieldKey: "max",
                 fieldName: "Max",
                 fieldType: "number",
-                fieldDetails: { valueAsNumber: true, }
             }, {
                 fieldKey: "unit",
                 fieldName: "Unit",
@@ -75,12 +97,10 @@ export const sensorMetaFormSchemas: SensorMetaFormSchemas = {
                 fieldKey: "min",
                 fieldName: "Min",
                 fieldType: "number",
-                fieldDetails: { valueAsNumber: true, }
             }, {
                 fieldKey: "max",
                 fieldName: "Max",
                 fieldType: "number",
-                fieldDetails: { valueAsNumber: true, }
             }, {
                 fieldKey: "unit",
                 fieldName: "Unit",

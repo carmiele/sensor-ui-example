@@ -17,7 +17,7 @@ const SensorTable = () => {
         fetch('/api/sensors')
             .then((res) => res.json())
             .then((data) => {
-                setSensors(data);
+                setSensors(Object.values(data));
                 setLoading(false);
             }, (e) => {
                 setLoading(false);

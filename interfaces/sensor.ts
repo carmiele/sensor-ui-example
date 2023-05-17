@@ -27,14 +27,9 @@ export interface SensorMetadata {
     model?: string,
     install_date?: number, // Unix timestamp
     manufacture_date?: number,
-    expiry_time?: number, // can possibly be computed?
+    expiry_date?: number, // can possibly be computed?
     // average number of samples take per second, eg. 3/sec
     sampling_frequency?: number,
-    // measurement_unit?: string, // smallest measurement unit. to what level of granularity/sensitivity
-
-    // bandwidth
-    // connectivity_level? - how many data is being dropped/kept/latency level?
-    // environments - freshwater vs seawater, land, sea
 }
 
 /**
@@ -60,4 +55,9 @@ export interface SensorRange {
     min?: number,
     max?: number,
     unit?: string,
+}
+
+export interface SensorMetadataBody {
+    sensorId: string,
+    meta: SensorMetadata
 }
