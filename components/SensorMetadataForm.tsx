@@ -30,7 +30,7 @@ const SensorMetadataForm = ({ submitting, setSubmitting, setFormSuccess, sensor 
                 if (!baseObject[key]) {
                     return;
                 }
-                return formatDate((new Date(baseObject[key] * 1000)));
+                return formatDate(new Date(baseObject[key]));
             }
         }
         return baseObject[key];
@@ -109,6 +109,13 @@ const SensorMetadataForm = ({ submitting, setSubmitting, setFormSuccess, sensor 
 
                 // remove original, concatenated form value
                 delete formValues[key];
+                continue;
+            }
+
+            const parsedDate = Date.parse(value);
+            if (parsedDate) {
+                // convert date string to Unix timestamp to persist
+                formValues[key] = parsedDate;
             }
         }
 

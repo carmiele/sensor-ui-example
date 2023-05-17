@@ -10,8 +10,8 @@
         "tags": ["tag1", "tag2", "tag3", "tag4 with-space"],
         "meta": {
             "model": "TS-AAA123",
-            "install_date": 1675266677,
-            "manufacture_date": 1652541704,
+            "install_date": 1675266677000,
+            "manufacture_date": 1652541704000,
             "temperature_range": {
                 "min": 0,
                 "max": 250,
