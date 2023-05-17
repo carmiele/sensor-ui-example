@@ -39,7 +39,7 @@ export interface SensorMetaFormSchema {
 }
 
 /**
- * Each sensor type will have a form schema,
+ * Each sensor type has a form schema for its metadata,
  * detailed in a list of form input options
  */
 export type SensorMetaFormSchemas = {
