@@ -1,6 +1,5 @@
-import Layout from '../components/Layout';
-import SensorTable from "../components/SensorTable";
-import { Sensor } from "../interfaces/sensor";
+import Layout from '@/components//Layout';
+import SensorTable from "@/components/SensorTable";
 
 const DashboardPage = () => (
     <Layout title="Sensor Dashboard">
