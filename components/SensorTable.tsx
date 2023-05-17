@@ -10,15 +10,25 @@ const SensorTable = () => {
     const [sensors, setSensors] = useState<Sensor[]>([]);
     const [filters, setFilters] = useState<{ [key: string]: string }>({});
 
+    /**
+     * Handles search term for particular field/filter
+     * Only handles singular value (for now)
+     * @param field
+     * @param event
+     */
     const searchSensors = (field: string, event: ChangeEvent<HTMLInputElement>) => {
         const val = event.target.value;
 
         const updatedFilters = { ...filters };
         updatedFilters[field] = val;
 
+        // update filters with the requested term
         setFilters(updatedFilters);
     };
 
+    /**
+     * Filters list of sensors by the requested search terms
+     */
     const filterSensors = () => {
         let filteredSensors: Sensor[] = allSensors;
 
@@ -33,12 +43,15 @@ const SensorTable = () => {
 
                 let valString = "";
 
+                //transform value to string for easy term find
                 if (sensor[key] instanceof Array) {
                     valString = sensor[key].toString();
                 } else {
                     valString = JSON.stringify(sensor[key]);
                 }
 
+                // At least partial term found.
+                // return in list of filtered results
                 if (valString.includes(val)) {
                     return sensor;
                 }
@@ -48,20 +61,27 @@ const SensorTable = () => {
     };
 
     useEffect(() => {
+        // sensors are filtered per each filter change
         filterSensors();
     }, [filters]);
 
     const getAllSensors = () => {
-        fetch('/api/sensors')
+        fetch("/api/sensors")
             .then((res) => res.json())
             .then((data) => {
+                // store list of all sensors to reference
                 setAllSensors(Object.values(data));
+                
+                // initial "filter" of sensors (none)
+                // to display for table
                 setFilters({});
                 setLoading(false);
             }, (e) => { });
     };
 
     useEffect(() => {
+        // get list of all available sensors
+        // upon first page load
         getAllSensors();
     }, []);
 
@@ -75,19 +95,19 @@ const SensorTable = () => {
             </tr>
             <tr className="border-b border-gray-400 bg-gray-100">
                 <th className="px-6 py-4 text-left">
-                    <input type="text" className="border-gray-400 border-2 px-4 py-2 w-full rounded-sm font-normal" onChange={(e) => searchSensors('name', e)} />
+                    <input type="text" className="border-gray-400 border-2 px-4 py-2 w-full rounded-sm font-normal" onChange={(e) => searchSensors("name", e)} />
                 </th>
                 <th className="px-6 py-4 text-left">
-                    <input type="text" className="border-gray-400 border-2 px-4 py-2 w-full rounded-sm font-normal" onChange={(e) => searchSensors('location', e)} />
+                    <input type="text" className="border-gray-400 border-2 px-4 py-2 w-full rounded-sm font-normal" onChange={(e) => searchSensors("location", e)} />
                 </th>
                 <th className="px-6 py-4 text-left">
-                    <input type="text" className="border-gray-400 border-2 px-4 py-2 w-full rounded-sm font-normal" onChange={(e) => searchSensors('tags', e)} />
+                    <input type="text" className="border-gray-400 border-2 px-4 py-2 w-full rounded-sm font-normal" onChange={(e) => searchSensors("tags", e)} />
                 </th>
                 <th className="pl-6 py-4 text-right"></th>
             </tr>
         </thead>
         <tbody>
-            {loading && <tr><td>Loading...</td></tr>}
+            {loading && <tr><td className="px-4 py-4">Loading...</td></tr>}
             {!loading && sensors?.length > 0 && sensors.map((sensor) => (
                 <tr data-test-id="sensor-rows" key={sensor.id} className="border-b border-gray-200">
                     <td className="px-6 py-4">{sensor.name || "--"}</td>
@@ -99,7 +119,7 @@ const SensorTable = () => {
                 </tr>
             ))
             }
-            {!loading && (!sensors || sensors?.length === 0) && <tr><td>No data.</td></tr>}
+            {!loading && (!sensors || sensors?.length === 0) && <tr><td className="px-4 py-4">No data.</td></tr>}
         </tbody>
     </table>)
 

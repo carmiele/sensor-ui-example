@@ -1,4 +1,4 @@
-import Layout from '@/components//Layout';
+import Layout from "@/components//Layout";
 import SensorTable from "@/components/SensorTable";
 
 const DashboardPage = () => (

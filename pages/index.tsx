@@ -1,5 +1,5 @@
 import Layout from "@/components/Layout"
-import Link from 'next/link'
+import Link from "next/link"
 
 const IndexPage = () => (
   <Layout title="Home">

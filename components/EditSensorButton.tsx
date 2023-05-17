@@ -1,5 +1,5 @@
 import { Sensor } from "../interfaces/sensor";
-import { useState } from 'react';
+import { useState } from "react";
 import EditSensorModal from "./EditSensorModal";
 
 type Props = {

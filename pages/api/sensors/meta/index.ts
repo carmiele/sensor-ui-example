@@ -1,18 +1,18 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import { promises as fs } from 'fs';
-import path from 'path';
+import { NextApiRequest, NextApiResponse } from "next";
+import { promises as fs } from "fs";
+import path from "path";
 import { Sensor, SensorMetadataBody } from "../../../../interfaces/sensor";
 
 
 const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
-  if (_req.method === 'PUT' || _req.method === 'POST') {
+  if (_req.method === "PUT" || _req.method === "POST") {
     try {
-      const jsonDirectory = path.join(process.cwd(), 'json');
-      const filePath = jsonDirectory + '/sensor-data.json';
-      const file = await fs.readFile(filePath, 'utf8');
+      const jsonDirectory = path.join(process.cwd(), "json");
+      const filePath = jsonDirectory + "/sensor-data.json";
+      const file = await fs.readFile(filePath, "utf8");
 
       if (!file) {
-        throw new Error('Cannot find sensor data');
+        throw new Error("Cannot find sensor data");
       }
 
       const allSensors: { [id: string]: Sensor } = JSON.parse(file);
@@ -20,7 +20,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
       const body: SensorMetadataBody = _req.body;
 
       if (!(body.sensorId in allSensors)) {
-        res.status(404).json({ message: 'cannot find content' });
+        res.status(404).json({ message: "cannot find content" });
       }
 
       allSensors[body.sensorId].meta = body.meta;

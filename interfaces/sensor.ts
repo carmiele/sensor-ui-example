@@ -10,7 +10,7 @@ export interface Sensor {
 }
 
 // fixed types for sensors
-export type SensorType = 'temperature' | 'pressure';
+export type SensorType = "temperature" | "pressure";
 
 export type Coordinates = {
     // latitude of GPS coordinate

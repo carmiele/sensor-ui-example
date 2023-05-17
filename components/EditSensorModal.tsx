@@ -1,5 +1,5 @@
-import { Dispatch, Fragment, SetStateAction, useEffect, useRef, useState } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
+import { Dispatch, Fragment, SetStateAction, useEffect, useRef, useState } from "react"
+import { Dialog, Transition } from "@headlessui/react"
 import { Sensor } from "../interfaces/sensor"
 import SensorMetadataForm from "./SensorMetadataForm"
 import Loading from "./Loading"
@@ -28,7 +28,7 @@ const EditSensorModal = ({ open, setOpen, sensorId }: Props) => {
         if (open) {
             // reset state to get fresh data
             setSensor(undefined);
-            
+
             fetch(`/api/sensors/${sensorId}`)
                 .then((res) => res.json())
                 .then((data) => {
@@ -76,6 +76,9 @@ const EditSensorModal = ({ open, setOpen, sensorId }: Props) => {
                             <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                                 <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                                     {
+                                        // Loading state shows when:
+                                        // - data is being fetched
+                                        // - data is being submitted
                                         (!sensor || submitting) && <div className="h-32 w-full flex content-center justify-items-center opacity-50"><Loading /></div>
                                     }
                                     {

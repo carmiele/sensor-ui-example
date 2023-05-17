@@ -1,6 +1,7 @@
 import { RegisterOptions } from "react-hook-form";
-import { SensorType } from './sensor';
+import { SensorType } from "./sensor";
 
+// list of available input types
 export type FormInputType =
     "button" |
     "checkbox" |
@@ -24,19 +25,23 @@ export type FormInputType =
     "time" |
     "url" |
     "week" |
-    // special typing for groups of inputs
+    // CUSTOM: special type for groups of inputs
     "group";
 
 
 export interface SensorMetaFormSchema {
     // key to use from structure
     fieldKey: string,
-    // user-friendly name that goes along with the key
+    // user-friendly name to dislay for input label
     fieldName: string,
     fieldType: FormInputType,
     fieldDetails?: RegisterOptions | SensorMetaFormSchema[]
 }
 
+/**
+ * Each sensor type will have a form schema,
+ * detailed in a list of form input options
+ */
 export type SensorMetaFormSchemas = {
     [key in SensorType]: SensorMetaFormSchema[]
 }
@@ -107,5 +112,7 @@ export const sensorMetaFormSchemas: SensorMetaFormSchemas = {
                 fieldType: "text",
             }]
         }],
-    "pressure": []
+    "pressure": [
+        // add in details here
+    ]
 };

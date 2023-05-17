@@ -1,8 +1,7 @@
 import { Dispatch, SetStateAction, useEffect } from "react";
-import { Sensor, SensorMetadataBody, SensorType } from "../interfaces/sensor";
+import { Sensor, SensorMetadataBody } from "../interfaces/sensor";
 import { RegisterOptions, useForm, useFormState } from "react-hook-form";
-import { SensorMetaFormSchema, sensorMetaFormSchemas } from "../interfaces/sensor-schemas";
-import { InputType } from "zlib";
+import { FormInputType, SensorMetaFormSchema, sensorMetaFormSchemas } from "../interfaces/sensor-schemas";
 import { formatDate } from "../utils/utils";
 import FormError from "./FormError";
 
@@ -21,17 +20,21 @@ const SensorMetadataForm = ({ submitting, setSubmitting, setFormSuccess, sensor 
         control
     });
 
-    const getPrimaryDefaultValue = (baseObject: any, key: string, fieldType: InputType) => {
+    const getPrimaryDefaultValue = (baseObject: any, key: string, fieldType: FormInputType) => {
         if (!baseObject || !(key in baseObject)) {
-            return '';
+            return "";
         }
         switch (fieldType) {
-            case 'date': {
+            case "date": {
                 if (!baseObject[key]) {
                     return;
                 }
+                // date is UNIX timestamp in db/store.
+                // must be formatted properly to display for date input
                 return formatDate(new Date(baseObject[key]));
             }
+            default:
+                break;
         }
         return baseObject[key];
     }
@@ -47,11 +50,17 @@ const SensorMetadataForm = ({ submitting, setSubmitting, setFormSuccess, sensor 
         if (!(subField.fieldKey in sensor?.meta[primaryField.fieldKey])) {
             return "";
         }
-        return sensor?.meta[primaryField.fieldKey][subField.fieldKey];
+        return getPrimaryDefaultValue(sensor?.meta[primaryField.fieldKey], subField.fieldKey, subField.fieldType);
     }
 
     const getSubfieldKey = (primaryField, subField): string => `${primaryField.fieldKey}#${subField.fieldKey}`;
 
+    /**
+     * Manually triggers validation of input
+     * on whichever handler it"s passed through 
+     * (typically onBlur)
+     * @param formName
+     */
     const validateInput = (formName: string) => {
         trigger(formName);
     }
@@ -71,7 +80,7 @@ const SensorMetadataForm = ({ submitting, setSubmitting, setFormSuccess, sensor 
 
                 const requestOptions = {
                     method: "PUT",
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(requestBody)
                 };
 
@@ -91,11 +100,17 @@ const SensorMetadataForm = ({ submitting, setSubmitting, setFormSuccess, sensor 
         }
     }
 
-    // handle form submission
+    // handles form submission upon button click
     useEffect(() => {
         handleFormSubmission();
     }, [submitting]);
 
+    /**
+     * Transforms form values to a structure
+     * expected by the enpdoint
+     * @param formValues
+     * @returns 
+     */
     const transformFormMeta = (formValues: { [key: string]: any }) => {
         for (const [key, value] of Object.entries(formValues)) {
             const keyGroup = key.split("#");
@@ -122,6 +137,7 @@ const SensorMetadataForm = ({ submitting, setSubmitting, setFormSuccess, sensor 
         return formValues;
     }
 
+    // pull up form schema and details for the current sensor
     const currentFormSchema = sensorMetaFormSchemas[sensor.type];
 
     return (<form>
@@ -147,7 +163,7 @@ const SensorMetadataForm = ({ submitting, setSubmitting, setFormSuccess, sensor 
                             </div>
                         ))
                             : <div>
-                                <input type={field.fieldType} defaultValue={getPrimaryDefaultValue(sensor?.meta, field.fieldKey, field.fieldType)} className={"text-gray-700 bg-gray-200 px-4 py-2 w-full rounded-sm" + ((field.fieldKey in errors) ? " border-2 border-red-500" : '')}
+                                <input type={field.fieldType} defaultValue={getPrimaryDefaultValue(sensor?.meta, field.fieldKey, field.fieldType)} className={"text-gray-700 bg-gray-200 px-4 py-2 w-full rounded-sm" + ((field.fieldKey in errors) ? " border-2 border-red-500" : "")}
                                     {...register(field.fieldKey, field.fieldDetails as RegisterOptions)}
                                     onBlur={() => validateInput(field.fieldKey)} />
                                 {
