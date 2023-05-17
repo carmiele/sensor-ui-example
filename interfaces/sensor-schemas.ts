@@ -111,6 +111,27 @@ export const sensorMetaFormSchemas: SensorMetaFormSchemas = {
                 fieldName: "Unit",
                 fieldType: "text",
             }]
+        }, {
+            fieldKey: "power_supply_range",
+            fieldName: "Power Supply Range",
+            fieldType: "group",
+            fieldDetails: [{
+                fieldKey: "min",
+                fieldName: "Min",
+                fieldType: "number",
+            }, {
+                fieldKey: "max",
+                fieldName: "Max",
+                fieldType: "number",
+            }, {
+                fieldKey: "unit",
+                fieldName: "Unit",
+                fieldType: "text",
+            }]
+        },{
+            fieldKey: "ip_rating",
+            fieldName: "IP Rating",
+            fieldType: "number",
         }],
     "pressure": [
         // add in details here
