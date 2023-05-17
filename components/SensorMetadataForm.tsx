@@ -7,14 +7,13 @@ import { formatDate } from "../utils/utils";
 import FormError from "./FormError";
 
 type Props = {
-    submitted: boolean,
-    setSubmitted: Dispatch<SetStateAction<boolean>>,
+    submitting: boolean,
+    setSubmitting: Dispatch<SetStateAction<boolean>>,
     setFormSuccess: Dispatch<SetStateAction<boolean>>,
     sensor: Sensor,
-    // form?: 
 }
 
-const SensorMetadataForm = ({ submitted, setSubmitted, setFormSuccess, sensor }: Props) => {
+const SensorMetadataForm = ({ submitting, setSubmitting, setFormSuccess, sensor }: Props) => {
 
     const { register, control, trigger, getValues } = useForm();
 
@@ -58,7 +57,7 @@ const SensorMetadataForm = ({ submitted, setSubmitted, setFormSuccess, sensor }:
     }
 
     const handleFormSubmission = async () => {
-        if (submitted) {
+        if (submitting) {
             // trigger validation of all form fields
             trigger();
 
@@ -88,14 +87,14 @@ const SensorMetadataForm = ({ submitted, setSubmitted, setFormSuccess, sensor }:
             }
 
             // reset submission state
-            setSubmitted(false);
+            setSubmitting(false);
         }
     }
 
     // handle form submission
     useEffect(() => {
         handleFormSubmission();
-    }, [submitted]);
+    }, [submitting]);
 
     const transformFormMeta = (formValues: { [key: string]: any }) => {
         for (const [key, value] of Object.entries(formValues)) {

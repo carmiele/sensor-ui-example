@@ -20,12 +20,12 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
       const body: SensorMetadataBody = _req.body;
 
       if (!(body.sensorId in allSensors)) {
-        res.status(404).json({ message: 'cannot find content'});
+        res.status(404).json({ message: 'cannot find content' });
       }
 
       allSensors[body.sensorId].meta = body.meta;
 
-      fs.writeFile(filePath, JSON.stringify(allSensors));
+      await fs.writeFile(filePath, JSON.stringify(allSensors));
 
       res.status(200).json({ ok: true });
     } catch (err: any) {

@@ -24,8 +24,6 @@ const SensorTable = () => {
     };
 
     const filterSensors = () => {
-        console.log('filters', filters);
-
         let filteredSensors: Sensor[] = allSensors;
 
         for (const [key, val] of Object.entries(filters)) {
